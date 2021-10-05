@@ -1,0 +1,163 @@
+{{>header}}
+
+<div class="container mt-5 mb-5">
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createData">
+        <i class='bx bxs-add-to-queue'></i> Add Artis
+    </button>
+
+    <table class="table table-hover table-bordered text-center align-middle">
+        <thead class="bg-light align-middle">
+            <tr>
+                <th scope="col">Name Artis</th>
+                <th scope="col">Photo</th1>
+                <th scope="col">Start Career</th>
+                <th scope="col">About</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>
+                    <img src="/upload/img/{{this.photo}}" style="width:200px; height:100%;">
+                </td>
+                <td>{{dateFormat this.start_career "DD MMMM YYYY"}}</td>
+                <td>{{this.about}}</td>
+                <td>
+                    <button onclick="deleteData({{this.id}})" class="btn btn-danger">
+                        <i class='bx bxs-trash-alt'></i>
+                    </button>
+
+                    <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal"
+                        data-bs-target="#update{{this.id}}">
+                        <i class='bx bxs-pencil'></i>
+                    </button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{!-- Notifikasi --}}
+{{#if message}}
+<script>
+    Swal.fire({
+        icon: '{{message.icon}}',
+        title: '{{message.title}}'
+    });
+</script>
+{{/if}}
+
+{{!-- Delete Data --}}
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are You Sure ?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = `/delete-artis/${id}`;
+            }
+        })
+    }
+</script>
+
+{{!-- Modal Create Data --}}
+<div class="modal fade" id="createData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class='bx bxs-add-to-queue'></i> Tambah Artis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <form action="/artis" method="POST" enctype="multipart/form-data">
+                            <label for="name" class="form-label">name Artis</label>
+                            <input type="text" class="form-control" autocomplete="off" id="name"
+                                placeholder="Masukkan Nama Artis" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="start_career" class="form-label">Start Career</label>
+                        <input type="date" class="form-control" autocomplete="off" id="start_career"
+                            placeholder="Sejak Kapan Memulai Karir" name="start_career">
+                    </div>
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Photo</label>
+                        <input type="file" class="form-control" autocomplete="off" id="photo" name="photo"
+                            accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label for="about" class="form-label">About</label>
+                        <textarea type="text" class="form-control" autocomplete="off" id="about"
+                            placeholder="Sekilas Tentang Artis" cols="50" rows="5" name="about"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary d-flex ms-auto p-2">
+                    <i class='bx bxs-send'></i>
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Update -->
+{{#each data}}
+<div class="modal fade" id="update{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class='bx bxs-pencil'></i> Move</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <form action="/update-artis/{{this.id}}" method="POST" enctype="multipart/form-data">
+                        <label for="name" class="form-label">Nama Artis</label>
+                        <input type="text" class="form-control" value="{{this.name}}" autocomplete="off" id="name"
+                            required="" placeholder="Input Name Artis" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="start_career" class="form-label">Start Career </label>
+                    <input type="date" class="form-control" autocomplete="off" id="start_career"
+                        placeholder="Start Career" name="start_career" value="{{dateFormat this.start_career "
+                        YYYY-MM-DD"}}">
+                </div>
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Photo</label>
+                    <input type="file" class="form-control mb-2" autocomplete="off" id="photo" name="photo"
+                        accept="image/*">
+                    <input type="text" value="{{this.photo}}" name="old_photo" hidden="">
+                    <img src="/upload/img/{{this.photo}}" style="width:200px; height:100%;">
+                </div>
+                <div class="mb-3">
+                    <label for="about" class="form-label">About</label>
+                    <textarea type="text" class="form-control" autocomplete="off" id="about" placeholder="About Artis"
+                        cols="50" rows="5" name="about">{{this.about}}</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">
+                    <i class='bx bxs-send'></i>
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+{{>footer}}

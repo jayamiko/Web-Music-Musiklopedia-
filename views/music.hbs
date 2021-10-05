@@ -1,0 +1,133 @@
+{{>header}}
+
+<div class="container mt-5 mb-5">
+
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createData">
+        <i class='bx bxs-add-to-queue'></i> Add Musik
+    </button>
+
+    <table class="table table-hover table-bordered text-center align-middle">
+        <thead class="bg-light align-middle">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Music</th>
+                <th scope="col">Cover Music</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Artis</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>
+                    <audio controls>
+                        <source src="/upload/music/{{this.music}}">
+                    </audio>
+                </td>
+                <td>
+                    <img src="/upload/img/{{this.cover_music}}" style="width: 200px;height:100%;">
+                </td>
+                <td>{{this.name_genre}}</td>
+                <td>{{this.name_artis}}</td>
+                <td>
+                    <button onclick="deleteData({{this.id}})" class="btn btn-danger">
+                        <i class='bx bxs-trash-alt'></i>
+                    </button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- Notifikasi --}}
+{{#if message}}
+<script>
+    Swal.fire({
+        icon: '{{message.icon}}',
+        title: '{{message.title}}'
+    });
+</script>
+{{/if}}
+
+{{!-- Modal Create Music --}}
+<div class="modal fade" id="createData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class='bx bxs-add-to-queue'></i> Tambah Musik
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <form action="/music" method="POST" enctype="multipart/form-data">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" autocomplete="off" id="title"
+                            placeholder="Masukkan Title" name="title" required="">
+                </div>
+                <div class="mb-3">
+                    <label for="music" class="form-label">Musik</label>
+                    <input type="file" class="form-control" autocomplete="off" id="music" placeholder="Musik"
+                        name="music" required="" accept="audio/*">
+                </div>
+                <div class="mb-3">
+                    <label for="cover_music" class="form-label">Cover Musik</label>
+                    <input type="file" class="form-control" autocomplete="off" id="cover_music"
+                        placeholder="Input Cover Musik" name="cover_music" required="" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="genre_id" class="form-label">Genre Musik</label>
+                    <select name="genre_id" id="genre_id" class="form-control" required="">
+                        <option value="" selected="">-- Select Genre --</option>
+                        {{#each getGenre}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="artis_id" class="form-label">Artis</label>
+                    <select name="artis_id" id="artis_id" class="form-control" required="">
+                        <option value="" selected="">-- Select Artis --</option>
+                        {{#each getArtis}}
+                        <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary d-flex ms-auto p-2">
+                    <i class='bx bxs-send'></i>
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- Delete Data --}}
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are You Sure ?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = `/delete-music/${id}`;
+            }
+        })
+    }
+</script>
+
+
+
+{{>footer}}

@@ -1,0 +1,35 @@
+{{> header}}
+{{> navbar}}
+
+<div class="container pt-5">
+    <form action="/playlist" method="POST" enctype="multipart/form-data">
+        {{!-- NAME --}}
+        <div class="row auth-register">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="file-input-group">
+                    <img src="/public/icons/plus.png">
+                    <input type="text" placeholder="Add Playlist" name="name">
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row auth-register">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 text-end">
+                <button class="btn-register">Submit</button>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </form>
+
+    {{#if message}}
+    <div class="alert alert-{{message.type}}" role="alert">
+        {{message.message}}
+    </div>
+    {{/if}}
+
+</div>
+
+{{> footer}}

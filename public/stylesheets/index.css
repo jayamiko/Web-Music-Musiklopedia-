@@ -1,0 +1,166 @@
+body 
+{
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.btn-login{
+    color:black;
+    padding: 5px 30px;
+    border: 1px solid black;
+    background-color: gold;
+    margin-top: 15px;
+}
+.btn-login:hover{
+    color: white;
+    background-color: #008cff;
+}
+.btn-register
+{
+    color:white;
+    padding: 7px 30px;
+    border:none;
+    background-color: #008cff;
+}
+.btn-register:hover{
+    color:white;
+    font-weight: bold;
+}
+.btn-login-footer{
+    color:white;
+    padding: 7px 50px;
+    border:none;
+    background-color: gold;
+    margin-top: 15px;
+}
+.btn-login-footer:hover{
+    color: black;
+    font-weight: bold;
+    background-color: gold;
+}
+.btn-logout{
+    color:white !important;
+    padding: 7px 50px !important;
+    border: solid black 1px !important;
+    background-color: maroon !important;
+}
+.btn-logout:hover{
+    font-weight: bold;
+    background-color: maroon !important;
+}
+.image-banner
+{
+    width: 80%;
+}
+.form-search 
+{
+    width: 50%;
+    background-color: #F2F2F2;
+    border: solid black 1px;
+}
+.form-search:focus 
+{
+    background-color: #F2F2F2;
+    box-shadow: none;
+    border: none;
+}
+.btn-search
+{
+    color:white;
+    padding: 0;
+    padding: 7px 30px;
+    border:none;
+    background-color: #008cff;
+}
+.btn-search:hover{
+    color: white;
+    background-color: #008cff;
+}
+#card p{
+    color: white !important;
+}
+.nav-item{
+    color: white !important;
+}
+.nav-item a:hover{
+    color: gold;
+    font-weight: bold;
+}
+.card-music{
+    margin: 0px 5px;
+    border: solid 2px black;
+    padding: 5px;
+    color: white;
+    border-radius: 10px;
+}
+.card-music img{
+    width: 100%;
+    height: 200px;
+}
+
+.img-artis
+{
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.name-artis 
+{
+    font-size: 12px;
+    color: white;
+}
+.genre 
+{
+    font-size: 12px;
+    color: white;
+}
+.playlist
+{
+    color: #008cff;
+    font-size: 30px;
+    cursor: pointer;
+}
+.btn-playlist
+{
+    background-color: #008cff;
+    font-size: 20px;
+    padding: 0;
+    color: white;
+    padding: 4px 20px;
+}
+.btn-playlist:hover 
+{
+    color: white;
+}
+.playlist:hover
+{
+    color: gold;
+}
+.play
+{
+    color: #FF5500;
+    font-size: 30px;
+    cursor: pointer;
+}
+.play:hover
+{
+    color: #f35404;
+}
+footer 
+{
+    background-color: black;
+    bottom: 0;
+    text-align: center;
+    color: white;
+}
+footer img 
+{
+    width: 70%;
+}
+.footer
+{
+    background-color: rgb(12, 12, 12);
+    bottom: 0;
+    text-align: center;
+    color: white;
+}

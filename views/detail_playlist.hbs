@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {{!-- Sweetalert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Register Playlist</title>
+</head>
+
+<body>
+    <div class="container mt-2">
+        <h2 class="text-center">
+            Playlist <br>
+            <a href="/" class="btn btn-dark mt-3">Back</a>
+        </h2>
+        <div class="text-center">
+            <img src="/public/img/{{validation}}" class="mt-5 text-center" style="width: 40%;">
+        </div>
+        <div class="row">
+            {{#each data}}
+            <div class="col-md-4">
+                <div class="card text-dark bg-light mb-3 mt-2">
+                    <div class="card-body">
+                        <p>Name Playlist : <strong>{{this.name}}</strong></p>
+                        <audio controls="" style="width: 100%;">
+                            <source src="/upload/music/{{this.music}}">
+                        </audio>
+                        <button onclick="deleteData({{this.id}})" class="btn btn-danger mt-2">X</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    {{!-- Delete Data --}}
+    <script>
+        function deleteData(id) {
+            Swal.fire({
+                title: 'Are You Sure ?',
+                text: "",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DC3545',
+                cancelButtonColor: 'success',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = `/delete-playlist/${id}`;
+                }
+            })
+        }
+    </script>
+
+
+    {{!-- Notifikasi --}}
+    {{#if message}}
+    <script>
+        Swal.fire({
+            icon: '{{message.icon}}',
+            title: '{{message.title}}'
+        });
+    </script>
+    {{/if}}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
